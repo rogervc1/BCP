@@ -8,12 +8,11 @@ const defaultFilters = {
   modality: "Todas",
 };
 
-export default function EventFeed({ user, events, onParticipate }) {
+export default function EventFeed({ user, events, regions, onParticipate }) {
   const [filters, setFilters] = useState(defaultFilters);
 
-  const regions = ["Todas", ...new Set(events.map((event) => event.region))];
   const dates = ["Todas", "Hoy", "Esta semana", "Proximos 15 dias", "Este mes"];
-  const modalities = ["Todas", "Virtual", "Presencial"];
+  const modalities = ["Todas", "Virtual", "Presencial", "Mixta"];
 
   const filteredEvents = useMemo(() => {
     const query = filters.query.trim().toLowerCase();
@@ -53,7 +52,7 @@ export default function EventFeed({ user, events, onParticipate }) {
               Oportunidades para generar impacto
             </h2>
             <p className="mt-2 text-sm font-semibold text-slate-500">
-              Filtra por region, fecha y modalidad. Luego valida tu evidencia para recibir puntos.
+              Filtra por region, fecha y modalidad. Luego valida tu participacion para recibir puntos.
             </p>
           </div>
 

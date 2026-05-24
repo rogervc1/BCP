@@ -5,11 +5,11 @@ export default function ValidationModal({ event, onClose }) {
         <div className="flex items-start justify-between gap-4">
           <div>
             <p className="text-sm font-black uppercase tracking-wide text-bcp-orange">
-              Validacion de impacto
+              Validacion de participacion
             </p>
             <h2 className="mt-1 text-2xl font-black text-slate-950">{event.title}</h2>
             <p className="mt-2 text-sm font-semibold text-slate-500">
-              Sube tu certificado, constancia o foto de evidencia para ganar {event.points} puntos.
+              Sube tu certificado, constancia o foto para iniciar la revision y ganar {event.points} puntos.
             </p>
           </div>
           <button
@@ -30,13 +30,13 @@ export default function ValidationModal({ event, onClose }) {
             Arrastra tu archivo aqui
           </span>
           <span className="mt-1 text-sm font-semibold text-slate-500">
-            o haz clic para seleccionar una imagen o PDF
+            o haz clic para seleccionar una constancia, imagen o PDF
           </span>
         </label>
 
-        <p className="mt-4 rounded-2xl bg-orange-50 p-4 text-sm font-semibold leading-6 text-slate-600">
-          Validacion automatica en progreso... Si la entidad no emite certificado, un asesor
-          revisara tu foto en 24h.
+        <p className="mt-4 rounded-2xl bg-sky-50 p-4 text-sm font-semibold leading-6 text-slate-600 ring-1 ring-bcp-sky/20">
+          Al enviarla, tu participacion pasara a proceso de revision. Si la entidad no emite
+          certificado, un asesor revisara tu foto en 24h.
         </p>
 
         <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
@@ -50,7 +50,7 @@ export default function ValidationModal({ event, onClose }) {
             onClick={onClose}
             className="rounded-2xl bg-bcp-orange px-6 py-3 text-sm font-black text-white shadow-card transition hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-bcp-orange focus:ring-offset-2"
           >
-            Enviar Evidencia
+            Enviar validacion
           </button>
         </div>
       </section>

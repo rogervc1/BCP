@@ -14,7 +14,7 @@ export default function RewardCard({ reward }) {
         <p className="text-sm font-black text-bcp-orange">{reward.partner}</p>
         <h3 className="mt-1 text-xl font-black text-slate-950">{reward.title}</h3>
         <p className="mt-3 text-sm font-semibold text-slate-500">
-          Canje disponible para voluntarios con evidencias validadas.
+          Canje disponible para voluntarios con participaciones validadas.
         </p>
       </div>
 

@@ -1,12 +1,12 @@
 export default function Navbar({ user, activeView, onNavigate }) {
   const navItems = [
     { id: "events", label: "Inicio" },
-    { id: "profile", label: "Perfil" },
+    { id: "impact", label: "Mi Impacto" },
     { id: "rewards", label: "Recompensas" },
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/70 bg-white/85 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-white/70 bg-white/75 shadow-sm backdrop-blur-xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
         <button
           className="flex items-center gap-2 rounded-2xl text-left focus:outline-none focus:ring-2 focus:ring-bcp-sky"
@@ -39,7 +39,7 @@ export default function Navbar({ user, activeView, onNavigate }) {
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="rounded-full bg-orange-50 px-3 py-2 text-sm font-black text-bcp-orange ring-1 ring-orange-100 sm:px-4">
+          <div className="rounded-full bg-gradient-to-r from-orange-50 to-white px-3 py-2 text-sm font-black text-bcp-orange ring-1 ring-orange-100 sm:px-4">
             {user.points.toLocaleString("es-PE")} pts
           </div>
           <div className="hidden text-right lg:block">
@@ -49,7 +49,7 @@ export default function Navbar({ user, activeView, onNavigate }) {
           <button
             onClick={() => onNavigate("profile")}
             className="rounded-full focus:outline-none focus:ring-2 focus:ring-bcp-sky"
-            aria-label="Ir al perfil"
+            aria-label="Ir al perfil civico"
           >
             <img
               src={user.avatar}
