@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: #f4f6f9;
+    color: #0f172a;
+    font-family: Inter, Roboto, ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .bcp-gradient {
+    background:
+      radial-gradient(circle at top left, rgba(0, 179, 255, 0.28), transparent 28rem),
+      radial-gradient(circle at 88% 8%, rgba(255, 120, 0, 0.18), transparent 22rem),
+      linear-gradient(135deg, #f8fafc 0%, #f4f6f9 42%, #eef5ff 100%);
+  }
+}
