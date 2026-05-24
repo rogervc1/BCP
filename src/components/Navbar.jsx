@@ -1,6 +1,7 @@
 export default function Navbar({ user, activeView, onNavigate }) {
   const navItems = [
-    { id: "events", label: "Explorar Eventos" },
+    { id: "events", label: "Inicio" },
+    { id: "profile", label: "Perfil" },
     { id: "rewards", label: "Recompensas" },
   ];
 
@@ -45,11 +46,17 @@ export default function Navbar({ user, activeView, onNavigate }) {
             <p className="text-sm font-black leading-4 text-slate-950">{user.name}</p>
             <p className="text-xs font-bold text-slate-500">{user.level}</p>
           </div>
-          <img
-            src={user.avatar}
-            alt={user.name}
-            className="h-11 w-11 rounded-full border-2 border-white object-cover shadow-card"
-          />
+          <button
+            onClick={() => onNavigate("profile")}
+            className="rounded-full focus:outline-none focus:ring-2 focus:ring-bcp-sky"
+            aria-label="Ir al perfil"
+          >
+            <img
+              src={user.avatar}
+              alt={user.name}
+              className="h-11 w-11 rounded-full border-2 border-white object-cover shadow-card"
+            />
+          </button>
         </div>
       </nav>
 

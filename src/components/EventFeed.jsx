@@ -8,7 +8,7 @@ const defaultFilters = {
   modality: "Todas",
 };
 
-export default function EventFeed({ events, onParticipate }) {
+export default function EventFeed({ user, events, onParticipate }) {
   const [filters, setFilters] = useState(defaultFilters);
 
   const regions = ["Todas", ...new Set(events.map((event) => event.region))];
@@ -41,6 +41,8 @@ export default function EventFeed({ events, onParticipate }) {
 
   return (
     <div className="space-y-5">
+      <ProfileSnapshot user={user} />
+
       <section className="rounded-[1.75rem] bg-white p-4 shadow-card ring-1 ring-slate-200/80 sm:p-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div>
@@ -122,6 +124,44 @@ export default function EventFeed({ events, onParticipate }) {
         )}
       </section>
     </div>
+  );
+}
+
+function ProfileSnapshot({ user }) {
+  return (
+    <section className="rounded-[1.75rem] bg-white p-4 shadow-card ring-1 ring-slate-200/80 sm:p-5">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-4">
+          <img
+            src={user.avatar}
+            alt={user.name}
+            className="h-14 w-14 rounded-full object-cover ring-4 ring-slate-100"
+          />
+          <div>
+            <p className="text-sm font-bold text-slate-500">Resumen de impacto</p>
+            <h1 className="text-xl font-black text-slate-950">{user.name}</h1>
+            <p className="text-sm font-semibold text-bcp-navy">{user.level}</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-3 sm:min-w-80">
+          <div className="rounded-2xl bg-orange-50 px-4 py-3">
+            <p className="text-xs font-black uppercase tracking-wide text-bcp-orange">
+              Puntos BCP
+            </p>
+            <p className="text-xl font-black text-slate-950">
+              {user.points.toLocaleString("es-PE")}
+            </p>
+          </div>
+          <div className="rounded-2xl bg-sky-50 px-4 py-3">
+            <p className="text-xs font-black uppercase tracking-wide text-bcp-navy">
+              Progreso
+            </p>
+            <p className="text-xl font-black text-slate-950">{user.nextLevelProgress}%</p>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 

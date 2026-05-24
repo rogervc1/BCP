@@ -15,14 +15,11 @@ export default function App() {
       <Navbar user={user} activeView={activeView} onNavigate={setActiveView} />
 
       <main className="mx-auto w-full max-w-5xl space-y-6 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
-        {activeView === "events" ? (
-          <>
-            <ProfileHeader user={user} />
-            <EventFeed events={events} onParticipate={setSelectedEvent} />
-          </>
-        ) : (
-          <RewardsMarketplace rewards={rewards} />
+        {activeView === "events" && (
+          <EventFeed user={user} events={events} onParticipate={setSelectedEvent} />
         )}
+        {activeView === "rewards" && <RewardsMarketplace rewards={rewards} />}
+        {activeView === "profile" && <ProfileHeader user={user} />}
       </main>
 
       {selectedEvent && (
