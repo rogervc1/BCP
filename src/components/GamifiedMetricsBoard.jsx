@@ -168,9 +168,9 @@ function getHoursTier(horas) {
       title: "Heroe Local",
       tooltip: "Obtenido por completar 50 horas de servicio a la comunidad.",
       bg: "from-amber-100 via-yellow-50 to-white",
-      ring: "ring-amber-200",
+      ring: "ring-bcp-sky/40",
       text: "text-amber-700",
-      label: "bg-bcp-orange text-white ring-orange-100",
+      label: "bg-bcp-navy text-white ring-bcp-sky/40",
     };
   }
 
@@ -192,9 +192,9 @@ function getHoursTier(horas) {
       title: "Iniciador Civico",
       tooltip: "Obtenido por completar 10 horas de servicio a la comunidad.",
       bg: "from-bcp-orange/30 via-white/20 to-bcp-sky/15",
-      ring: "ring-orange-200/80",
+      ring: "ring-bcp-sky/40",
       text: "text-bcp-orange",
-      label: "bg-bcp-orange text-white ring-orange-100",
+      label: "bg-bcp-navy text-white ring-bcp-sky/40",
     };
   }
 
@@ -233,10 +233,10 @@ function getStreakTier(eventosValidados) {
     };
   }
 
-  if (eventosValidados >= 5) {
+  if (eventosValidados >= 1) {
     return {
       intensity: "mid",
-      tooltip: "Racha activa: 5 eventos validados o mas.",
+      tooltip: "Racha activa: Has comenzado tu impacto.",
       bg: "from-bcp-orange/25 via-white/20 to-bcp-sky/20",
       ring: "ring-orange-100",
       text: "text-bcp-orange",
@@ -246,7 +246,7 @@ function getStreakTier(eventosValidados) {
 
   return {
     intensity: "low",
-    tooltip: "Valida 5 eventos para encender tu racha de impacto.",
+    tooltip: "Valida tu primer evento para encender tu racha de impacto.",
     bg: "from-bcp-navy/15 to-white/20",
     ring: "ring-bcp-sky/30",
     text: "text-slate-600",

@@ -1,28 +1,62 @@
 import { useState } from "react";
-import { events, impactHistory, regions, rewards, user } from "./data/mockData";
+import { events, impactHistory, regions, rewards, user, MEDALS } from "./data/mockData";
 import Navbar from "./components/Navbar";
 import EventFeed from "./components/EventFeed";
 import RewardsMarketplace from "./components/RewardsMarketplace";
 import ImpactProfile from "./components/ImpactProfile";
 import ProfileHeader from "./components/ProfileHeader";
+import LocationPermissionModal from "./components/LocationPermissionModal";
 import ValidationModal from "./components/ValidationModal";
 
 export default function App() {
   const [activeView, setActiveView] = useState("events");
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [shareEvent, setShareEvent] = useState(null);
-  const profileCategories = getProfileCategories(events, impactHistory, user);
+  const [showLocationModal, setShowLocationModal] = useState(true);
+  const [preferredRegion, setPreferredRegion] = useState(null);
+
+  // Calcular puntos y horas desde participaciones validadas
+  const validatedImpact = impactHistory.filter((item) => item.status === "validated");
+  const totalPoints = validatedImpact.reduce((acc, item) => {
+    const event = events.find((e) => e.id === item.eventId);
+    return acc + (event?.points || 0);
+  }, 0);
+  const totalHours = validatedImpact.reduce((acc, item) => {
+    const event = events.find((e) => e.id === item.eventId);
+    return acc + (event?.hours || 0);
+  }, 0);
+
+  const currentMedal = [...MEDALS].reverse().find((m) => totalHours >= m.minHours) || MEDALS[0];
+
+  const updatedUser = {
+    ...user,
+    points: totalPoints,
+    level: currentMedal.level,
+    stats: [
+      { label: "Horas voluntarias", value: `${totalHours}h`, numericValue: totalHours },
+      { label: "Eventos validados", value: String(validatedImpact.length) },
+      { label: "Puntos ganados", value: totalPoints.toLocaleString("es-PE") },
+    ],
+  };
+
+  const profileCategories = getProfileCategories(events, impactHistory, updatedUser);
 
   return (
     <div className="min-h-screen bcp-gradient">
-      <Navbar user={user} activeView={activeView} onNavigate={setActiveView} />
+      <Navbar
+        user={updatedUser}
+        activeView={activeView}
+        onNavigate={setActiveView}
+        events={events}
+      />
 
       <main className="mx-auto w-full max-w-5xl space-y-6 px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
         {activeView === "events" && (
           <EventFeed
-            user={user}
+            user={updatedUser}
             events={events}
             regions={regions}
+            preferredRegion={preferredRegion}
             onParticipate={setSelectedEvent}
           />
         )}
@@ -34,13 +68,23 @@ export default function App() {
           />
         )}
         {activeView === "profile" && (
-          <ProfileHeader user={user} categorias={profileCategories} />
+          <ProfileHeader user={updatedUser} categorias={profileCategories} events={events} />
         )}
         {activeView === "rewards" && <RewardsMarketplace rewards={rewards} />}
       </main>
 
       {selectedEvent && (
         <ValidationModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />
+      )}
+      {showLocationModal && (
+        <LocationPermissionModal
+          onAllow={(region) => {
+            setPreferredRegion(region);
+            setActiveView("events");
+            setShowLocationModal(false);
+          }}
+          onClose={() => setShowLocationModal(false)}
+        />
       )}
       {shareEvent && <ShareSheet event={shareEvent} onClose={() => setShareEvent(null)} />}
     </div>

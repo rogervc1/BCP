@@ -1,7 +1,7 @@
 import { MEDALS } from "../data/mockData";
 import GamifiedMetricsBoard from "./GamifiedMetricsBoard";
 
-export default function ProfileHeader({ user, categorias = [] }) {
+export default function ProfileHeader({ user, categorias = [], events = [] }) {
   const volunteerHours = user.stats.find(s => s.label === "Horas voluntarias")?.numericValue || 0;
   
   // Encontrar la medalla actual
@@ -20,6 +20,8 @@ export default function ProfileHeader({ user, categorias = [] }) {
   const horas = volunteerHours;
   const eventosValidados = Number.parseInt(user.stats[1]?.value, 10) || 0;
   const puntos = Number.parseInt(String(user.stats[2]?.value).replace(/\D/g, ""), 10) || 0;
+  const featuredActivity =
+    events.find((event) => event.title === "Guardianes del Lago Titicaca") ?? events[0];
 
   return (
     <section className="overflow-hidden rounded-[1.75rem] bg-white/80 shadow-card ring-1 ring-white/80 backdrop-blur-xl">
@@ -66,7 +68,7 @@ export default function ProfileHeader({ user, categorias = [] }) {
             </div>
             <p className="mt-2 text-xs font-bold text-slate-500">
               {currentMedal.nextMedal 
-                ? `Te faltan ${remainingHours} horas de participación para alcanzar el rango ${currentMedal.nextMedal}`
+                ? `Estás al ${progress}% de tu nivel actual. Te falta un ${100 - progress}% (${remainingHours}h) para alcanzar el rango ${currentMedal.nextMedal}`
                 : "¡Felicidades! Has alcanzado el nivel máximo."}
             </p>
           </div>
@@ -89,6 +91,62 @@ export default function ProfileHeader({ user, categorias = [] }) {
               Conectar con otros voluntarios (Proximamente)
             </button>
           </div>
+        </div>
+
+        {featuredActivity && <ActivityPost user={user} event={featuredActivity} />}
+      </div>
+    </section>
+  );
+}
+
+function ActivityPost({ user, event }) {
+  return (
+    <section className="mt-5 overflow-hidden rounded-[1.5rem] bg-white shadow-card ring-1 ring-slate-200/80">
+      <div className="p-4 sm:p-5">
+        <div className="flex items-start gap-3">
+          <img
+            src={user.avatar}
+            alt={user.name}
+            className="h-11 w-11 rounded-full object-cover ring-2 ring-white shadow-card"
+          />
+          <div className="min-w-0">
+            <p className="font-black text-slate-950">{user.name}</p>
+            <p className="text-xs font-bold text-slate-500">
+              Compartio una participacion civica · Puno
+            </p>
+          </div>
+        </div>
+
+        <p className="mt-4 text-sm font-semibold leading-6 text-slate-700">
+          Muy feliz de haber participado en <strong>{event.title}</strong> junto a{" "}
+          <strong>{event.organization}</strong>. Fue una experiencia muy valiosa para aportar al
+          cuidado del Lago Titicaca, trabajar en equipo y seguir construyendo impacto social desde
+          mi comunidad.
+        </p>
+      </div>
+
+      <div className="relative h-64 overflow-hidden sm:h-80">
+        <img src={event.image} alt={event.title} className="h-full w-full object-cover" />
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/80 to-transparent p-5 text-white">
+          <p className="text-xs font-black uppercase tracking-wide text-orange-200">
+            {event.category}
+          </p>
+          <h3 className="mt-1 text-xl font-black">{event.title}</h3>
+          <p className="mt-1 text-sm font-semibold text-white/85">
+            {event.location} · +{event.points} pts · {event.hours}h
+          </p>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between gap-3 px-4 py-3 text-sm font-black text-slate-500 sm:px-5">
+        <span className="text-bcp-navy">Impacto validado</span>
+        <div className="flex gap-2">
+          <button className="rounded-full bg-sky-50 px-3 py-2 text-xs text-bcp-navy transition hover:bg-sky-100">
+            Celebrar
+          </button>
+          <button className="rounded-full bg-orange-50 px-3 py-2 text-xs text-bcp-orange transition hover:bg-orange-100">
+            Compartir
+          </button>
         </div>
       </div>
     </section>

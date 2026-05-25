@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import EventCard from "./EventCard";
 
 const defaultFilters = {
@@ -8,11 +8,19 @@ const defaultFilters = {
   modality: "Todas",
 };
 
-export default function EventFeed({ user, events, regions, onParticipate }) {
+export default function EventFeed({ user, events, regions, preferredRegion, onParticipate }) {
   const [filters, setFilters] = useState(defaultFilters);
 
   const dates = ["Todas", "Hoy", "Esta semana", "Proximos 15 dias", "Este mes"];
   const modalities = ["Todas", "Virtual", "Presencial", "Mixta"];
+
+  useEffect(() => {
+    if (!preferredRegion || !regions.includes(preferredRegion)) {
+      return;
+    }
+
+    setFilters((current) => ({ ...current, region: preferredRegion }));
+  }, [preferredRegion, regions]);
 
   const filteredEvents = useMemo(() => {
     const query = filters.query.trim().toLowerCase();
@@ -154,7 +162,7 @@ function ProfileSnapshot({ user }) {
           </div>
           <div className="rounded-2xl bg-sky-50 px-4 py-3">
             <p className="text-xs font-black uppercase tracking-wide text-bcp-navy">
-              Progreso
+              Progreso 20%
             </p>
             <p className="text-xl font-black text-slate-950">{user.nextLevelProgress}%</p>
           </div>

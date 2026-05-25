@@ -1,4 +1,7 @@
-export default function Navbar({ user, activeView, onNavigate }) {
+import NotificationsMenu from "./NotificationsMenu";
+import logoInvolucrate from "../images/logoInvolucrate.png";
+
+export default function Navbar({ user, activeView, onNavigate, events }) {
   const navItems = [
     { id: "events", label: "Inicio" },
     { id: "impact", label: "Mi Impacto" },
@@ -13,12 +16,16 @@ export default function Navbar({ user, activeView, onNavigate }) {
           onClick={() => onNavigate("events")}
           aria-label="Ir al inicio"
         >
-          <span className="grid h-11 w-11 place-items-center rounded-2xl bg-bcp-navy text-lg font-black text-white shadow-soft">
-            B
-          </span>
+          <div className="h-11 w-11 overflow-hidden rounded-2xl bg-white shadow-soft">
+            <img 
+              src={logoInvolucrate} 
+              alt="Involucrate.pe Logo" 
+              className="h-full w-full object-contain"
+            />
+          </div>
           <span className="hidden sm:block">
-            <span className="block text-sm font-black leading-4 text-bcp-navy">BCP</span>
-            <span className="block text-xs font-semibold text-slate-500">Voluntariado</span>
+            <span className="block text-sm font-black leading-4 text-bcp-navy">Involucrate.pe</span>
+            <span className="block text-xs font-semibold text-slate-500">Impacto Social</span>
           </span>
         </button>
 
@@ -42,6 +49,7 @@ export default function Navbar({ user, activeView, onNavigate }) {
           <div className="rounded-full bg-gradient-to-r from-orange-50 to-white px-3 py-2 text-sm font-black text-bcp-orange ring-1 ring-orange-100 sm:px-4">
             {user.points.toLocaleString("es-PE")} pts
           </div>
+          <NotificationsMenu user={user} events={events} />
           <div className="hidden text-right lg:block">
             <p className="text-sm font-black leading-4 text-slate-950">{user.name}</p>
             <p className="text-xs font-bold text-slate-500">{user.level}</p>

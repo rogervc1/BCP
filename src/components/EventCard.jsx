@@ -25,8 +25,16 @@ export default function EventCard({
         <div className="p-5 sm:p-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex items-center gap-3">
-              <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-bcp-navy text-base font-black text-white">
-                {event.organization.charAt(0)}
+              <div className="grid h-12 w-12 shrink-0 place-items-center overflow-hidden rounded-xl bg-bcp-navy text-base font-black text-white">
+                {event.orgLogo ? (
+                  <img
+                    src={event.orgLogo}
+                    alt={event.organization}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  event.organization.charAt(0)
+                )}
               </div>
               <div>
                 <h3 className="text-xl font-black text-slate-950">{event.title}</h3>
@@ -42,8 +50,7 @@ export default function EventCard({
           </div>
 
           <p className="mt-4 text-sm font-semibold leading-6 text-slate-600">
-            Participa en esta iniciativa, valida tu participacion y fortalece tu perfil de impacto
-            con habilidades verificables.
+            {event.description}
           </p>
 
           <div className="mt-5 grid gap-3 text-sm sm:grid-cols-3">
