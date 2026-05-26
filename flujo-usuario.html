@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Diagrama de Flujo de Usuario</title>
+    <style>
+      :root {
+        --navy: #002a8d;
+        --blue: #00b3ff;
+        --orange: #ff7800;
+        --green: #16a34a;
+        --slate: #334155;
+        --bg: #f6f8fb;
+        --line: #64748b;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: #0f172a;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      header {
+        background: var(--navy);
+        color: white;
+        padding: 28px 24px;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 32px;
+      }
+
+      p {
+        margin: 0;
+        color: #dbeafe;
+        font-weight: 600;
+      }
+
+      main {
+        width: min(1200px, calc(100% - 24px));
+        margin: 24px auto 40px;
+        border: 1px solid #dbe3ef;
+        border-radius: 16px;
+        background: white;
+        box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+        overflow: auto;
+      }
+
+      svg {
+        display: block;
+        min-width: 1120px;
+        width: 100%;
+        height: auto;
+      }
+
+      .box {
+        fill: #ffffff;
+        stroke: var(--navy);
+        stroke-width: 3;
+      }
+
+      .decision {
+        fill: #fff7ed;
+        stroke: var(--orange);
+        stroke-width: 3;
+      }
+
+      .action {
+        fill: #f0f9ff;
+        stroke: var(--blue);
+        stroke-width: 3;
+      }
+
+      .success {
+        fill: #f0fdf4;
+        stroke: var(--green);
+        stroke-width: 3;
+      }
+
+      .end {
+        fill: var(--navy);
+        stroke: var(--navy);
+        stroke-width: 3;
+      }
+
+      .text {
+        fill: #0f172a;
+        font-size: 16px;
+        font-weight: 700;
+        text-anchor: middle;
+      }
+
+      .small {
+        fill: var(--slate);
+        font-size: 13px;
+        font-weight: 600;
+        text-anchor: middle;
+      }
+
+      .white {
+        fill: white;
+      }
+
+      .arrow {
+        fill: none;
+        stroke: var(--line);
+        stroke-width: 3;
+        marker-end: url(#arrow);
+      }
+
+      .label {
+        fill: var(--orange);
+        font-size: 13px;
+        font-weight: 800;
+        text-anchor: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Diagrama de Flujo de Usuario</h1>
+      <p>Recorrido principal del usuario en Involucrate.pe</p>
+    </header>
+
+    <main>
+      <svg viewBox="0 0 1120 1080" role="img" aria-label="Diagrama de flujo de usuario">
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L9,3 z" fill="#64748b"></path>
+          </marker>
+        </defs>
+
+        <!-- Columna principal -->
+        <rect class="box" x="440" y="40" width="240" height="70" rx="35"></rect>
+        <text class="text" x="560" y="70">Inicio</text>
+        <text class="small" x="560" y="92">Usuario abre la pagina</text>
+
+        <path class="arrow" d="M560 110 L560 155"></path>
+
+        <polygon class="decision" points="560,155 705,230 560,305 415,230"></polygon>
+        <text class="text" x="560" y="222">Permitir</text>
+        <text class="text" x="560" y="244">ubicacion?</text>
+
+        <path class="arrow" d="M705 230 L830 230 L830 330"></path>
+        <text class="label" x="770" y="214">Si</text>
+
+        <rect class="action" x="730" y="330" width="200" height="70" rx="14"></rect>
+        <text class="text" x="830" y="360">Filtrar por</text>
+        <text class="small" x="830" y="382">region cercana</text>
+
+        <path class="arrow" d="M560 305 L560 360"></path>
+        <text class="label" x="585" y="334">No</text>
+
+        <path class="arrow" d="M830 400 L830 445 L620 445"></path>
+
+        <rect class="action" x="430" y="410" width="260" height="80" rx="14"></rect>
+        <text class="text" x="560" y="442">Explorar eventos</text>
+        <text class="small" x="560" y="465">Buscar y aplicar filtros</text>
+
+        <path class="arrow" d="M560 490 L560 535"></path>
+
+        <polygon class="decision" points="560,535 710,610 560,685 410,610"></polygon>
+        <text class="text" x="560" y="600">Encuentra un</text>
+        <text class="text" x="560" y="622">evento de interes?</text>
+
+        <path class="arrow" d="M410 610 L245 610 L245 450 L430 450"></path>
+        <text class="label" x="320" y="594">No</text>
+        <rect class="box" x="120" y="575" width="210" height="70" rx="14"></rect>
+        <text class="text" x="225" y="605">Ajustar filtros</text>
+        <text class="small" x="225" y="627">o limpiar busqueda</text>
+
+        <path class="arrow" d="M560 685 L560 735"></path>
+        <text class="label" x="585" y="715">Si</text>
+
+        <polygon class="decision" points="560,735 715,810 560,885 405,810"></polygon>
+        <text class="text" x="560" y="802">Que desea</text>
+        <text class="text" x="560" y="824">hacer?</text>
+
+        <!-- Rama inscripcion -->
+        <path class="arrow" d="M405 810 L250 810"></path>
+        <text class="label" x="330" y="790">Inscribirse</text>
+        <rect class="action" x="70" y="770" width="180" height="80" rx="14"></rect>
+        <text class="text" x="160" y="802">Abrir enlace</text>
+        <text class="small" x="160" y="825">externo del evento</text>
+
+        <!-- Rama validacion -->
+        <path class="arrow" d="M715 810 L870 810"></path>
+        <text class="label" x="792" y="790">Validar</text>
+        <rect class="action" x="870" y="770" width="190" height="80" rx="14"></rect>
+        <text class="text" x="965" y="802">Subir evidencia</text>
+        <text class="small" x="965" y="825">foto, PDF o constancia</text>
+
+        <path class="arrow" d="M965 850 L965 925 L680 925"></path>
+
+        <rect class="success" x="440" y="890" width="240" height="80" rx="14"></rect>
+        <text class="text" x="560" y="923">Revision y validacion</text>
+        <text class="small" x="560" y="947">se actualiza Mi Impacto</text>
+
+        <path class="arrow" d="M440 930 L315 930 L315 850"></path>
+        <text class="label" x="372" y="914">Despues del evento</text>
+
+        <path class="arrow" d="M560 970 L560 1010"></path>
+
+        <rect class="end" x="410" y="1010" width="300" height="70" rx="35"></rect>
+        <text class="text white" x="560" y="1038">Gana puntos</text>
+        <text class="small white" x="560" y="1062">sube nivel y canjea recompensas</text>
+
+        <!-- Accesos secundarios -->
+        <rect class="box" x="70" y="150" width="230" height="80" rx="14"></rect>
+        <text class="text" x="185" y="183">Notificaciones</text>
+        <text class="small" x="185" y="206">recomiendan eventos</text>
+        <path class="arrow" d="M300 190 L415 220"></path>
+
+        <rect class="box" x="820" y="150" width="230" height="80" rx="14"></rect>
+        <text class="text" x="935" y="183">Perfil civico</text>
+        <text class="small" x="935" y="206">ver progreso y CV</text>
+        <path class="arrow" d="M820 190 L705 220"></path>
+
+        <rect class="box" x="780" y="555" width="230" height="80" rx="14"></rect>
+        <text class="text" x="895" y="588">Recompensas</text>
+        <text class="small" x="895" y="611">canjear puntos</text>
+        <path class="arrow" d="M780 595 L710 610"></path>
+      </svg>
+    </main>
+  </body>
+</html>
